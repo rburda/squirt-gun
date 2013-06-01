@@ -1,0 +1,18 @@
+body {width:100%; max-width:30em; margin:0 auto; font:normal 1em Tahoma, Verdana, Arial; text-align:center; background-color:#ebf4fa; color:#206ba4;}
+
+h1 {position:relative; top:-11px; font:bold 400% "Arial Black"; line-height:100%; text-transform:uppercase; text-align:center;}
+h1 a {text-decoration:none; color:#ffab35;}
+a {color:#54a4d3;}
+p {margin:1em 0;}
+form {margin:1em 0;}
+label {display:inline-block; margin-right:.5em;}
+input {display:inline-block; font-size:1em; width:10em; margin-right:.5em; padding:.125em; border:1px solid #bbd9ee;}
+button {font-size:1em; padding:.25em; border:none; border-radius:4px; background:#ffab35; color:#fff; font-weight:bold;}
+
+#content {margin:.5em;}
+a.shhh {color:inherit; text-decoration:none; white-space:nowrap;}
+a.shhh:hover {text-decoration:underline;}
+
+.reply .msg {padding-bottom:28em;}
+.reply .nasty {background:url('red.png') no-repeat center bottom;}
+.reply .mmmmm {background:url('yellow.png') no-repeat center bottom;}

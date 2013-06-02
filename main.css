@@ -23,3 +23,5 @@ a.shhh:hover {text-decoration:underline;}
 .reply .msg {padding-bottom:28em;}
 .reply .nasty {background:url('red.png') no-repeat center bottom;}
 .reply .mmmmm {background:url('yellow.png') no-repeat center bottom;}
+#map { height: 300px; }
+

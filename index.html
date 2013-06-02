@@ -4,6 +4,54 @@
   <title></title>
   <link type="text/css" rel="stylesheet" href="http://www.ratkinson.com/css-reset.css" media="all" />
   <link type="text/css" rel="stylesheet" href="main.css" media="all" />
+
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyi9g2sLU_p_kK0375QMOWfi3qDRxN55s&sensor=false">
+    </script>
+      <script type="text/javascript">
+
+      function drawMap(elementId, markerLocations)
+      {
+        var centerLoc = markerLocations[0].latLng;
+        var mapOptions = {
+          center: centerLoc,
+          zoom: 10,
+          sensor: false,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(
+          document.getElementById(elementId), mapOptions); 
+
+        for (i = 0; i < markerLocations.length; i++)
+        {
+        var marker = new google.maps.Marker({
+            position: markerLocations[i].latLng,
+            map: map,
+            title:markerLocations[i].name
+        }); 
+        }       
+      }
+
+
+      function initializeMap(elementId, zipCode) {
+
+        var ajaxCall = $.ajax({
+            url: "http://vegaswater.elasticbeanstalk.com/station/location/zip/"+zipCode,
+            dataType: 'jsonp' })
+          .done(function(data) 
+            { 
+              var markers = new Array();
+
+              for (x=0; x < data.length; x++)
+              {
+                markers.push({ name: data[x].name, latLng: new google.maps.LatLng(data[x].lat, data[x].lon)});
+              }
+              drawMap(elementId, markers);
+            });
+      }
+
+
+    </script>
 </head>
 <body>
   <h1><a href="index.html">Squirt Gun</a></h1>
@@ -50,7 +98,7 @@
           '</table>'
         );
       };
-      var showReply = function (data) {
+      var showReply = function (data, zip) {
         var pwsid = data[0].PWSID;
         var isGoodWater = data[1];
         var p = document.createElement('p');
@@ -62,6 +110,9 @@
         } else {
           html = '<p class="msg nasty"><a href="http://www.youtube.com/watch?v=7cqOEr_yfak" target="_blank" class="shhh">Oh Joby! That\'s the NASTIEST THANG!</a> Don\'t drink that water!</p>';
         }
+
+        html += '<div id="map"></div>';
+        initializeMap('map', zip);
         $(content).addClass('reply');
         content.innerHTML = html;
 
@@ -95,7 +146,7 @@
           'jsonpCallback': 'baa',
           'success': function (data) {
             console.log('***', 'data:', data);
-            showReply(data);
+            showReply(data, zip);
           }
         });
       });
